@@ -221,14 +221,84 @@
   .corner-rune.bl { bottom: 8px; left: 10px; }
   .corner-rune.br { bottom: 8px; right: 10px; }
 
-  .bio-label {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 0.55rem;
-    letter-spacing: 0.35em;
-    color: rgba(167,71,254,0.7);
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
+ .bio-label {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  text-align: center;
+  font-weight: 600;
+
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation:
+    romanticShift 6s linear infinite,
+    gentleFloat 3s ease-in-out infinite;
+}
+
+/* PROFILE – tím pastel dịu */
+.label-profile {
+  background: linear-gradient(
+    90deg,
+    #e9d5ff,
+    #c084fc,
+    #d8b4fe,
+    #c084fc,
+    #e9d5ff
+  );
+
+  text-shadow:
+    0 0 6px rgba(192,132,252,0.6),
+    0 0 14px rgba(167,139,250,0.4);
+}
+
+/* INFO – hồng tím lãng mạn */
+.label-info {
+  background: linear-gradient(
+    90deg,
+    #fbcfe8,
+    #e879f9,
+    #c084fc,
+    #e879f9,
+    #fbcfe8
+  );
+
+  text-shadow:
+    0 0 6px rgba(232,121,249,0.6),
+    0 0 14px rgba(192,132,252,0.5);
+}
+
+/* SKILL – xanh tím huyền bí */
+.label-skill {
+  background: linear-gradient(
+    90deg,
+    #c7d2fe,
+    #a5b4fc,
+    #c084fc,
+    #a5b4fc,
+    #c7d2fe
+  );
+
+  text-shadow:
+    0 0 6px rgba(165,180,252,0.6),
+    0 0 14px rgba(192,132,252,0.4);
+}
+
+/* Ánh sáng chạy */
+@keyframes romanticShift {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Đung đưa nhẹ */
+@keyframes gentleFloat {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
   .bio-text {
     font-size: 1.05rem;
     font-weight: 300;
@@ -634,10 +704,10 @@
   flex-wrap: wrap;
 }
 
-.left-card, .bio-card, .skill-card { width: 520px; flex: 0 0 520px; } /* LEFT CARD - giống bio-card */ .left-card { background: linear-gradient(135deg, rgba(15,8,35,0.9), rgba(7,5,20,0.95)); border: 1px solid rgba(107,33,168,0.3); border-radius: 2px; padding: 30px 36px; max-width: 520px; width: 100%; margin-bottom: 28px; position: relative; box-shadow: 0 0 40px rgba(107,33,168,0.15), inset 0 0 30px rgba(0,0,0,0.3); backdrop-filter: blur(10px); } /* viền gradient mỏng */ .left-card::before { content: ''; position: absolute; inset: 0; border-radius: 2px; padding: 1px; background: linear-gradient( 135deg, rgba(147,51,234,0.4), transparent, rgba(232,121,249,0.2), transparent ); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+.left-card, .bio-card, .skill-card { width: 520px; flex: 0 0 520px; } .left-card { background: linear-gradient(135deg, rgba(15,8,35,0.9), rgba(7,5,20,0.95)); border: 1px solid rgba(107,33,168,0.3); border-radius: 2px; padding: 30px 36px; max-width: 520px; width: 100%; margin-bottom: 28px; position: relative; box-shadow: 0 0 40px rgba(107,33,168,0.15), inset 0 0 30px rgba(0,0,0,0.3); backdrop-filter: blur(10px); } /* viền gradient mỏng */ .left-card::before { content: ''; position: absolute; inset: 0; border-radius: 2px; padding: 1px; background: linear-gradient( 135deg, rgba(147,51,234,0.4), transparent, rgba(232,121,249,0.2), transparent ); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
 
 
-/* ===== LOVE CONTAINER ===== */
+
 
 .love-container{
   position: relative;
@@ -648,12 +718,12 @@
   height:120px;
 }
 
-/* ===== MAIN HEART ===== */
+
 
 .main-heart{
-  font-size:70px; /* TO HƠN */
+  font-size:70px;
 
-  /* Gradient đa màu */
+ 
   background: linear-gradient(
     45deg,
     #ff6ec7,
@@ -687,7 +757,7 @@
   100%{ background-position:0% 50%; }
 }
 
-/* ===== FLOAT HEART ===== */
+
 
 .float-heart{
   position:absolute;
@@ -726,7 +796,7 @@
 }
 
 
-/* ===== LOVE NAME ROMANTIC STYLE ===== */
+
 
 .love-name {
   font-weight: 700;
@@ -771,7 +841,7 @@
 .love-name span:nth-child(8){ animation-delay: .7s, .7s; }
 .love-name span:nth-child(9){ animation-delay: .8s, .8s; }
 
-/* Sóng lên xuống */
+
 @keyframes wave{
   0%,100%{
     transform: translateY(0);
@@ -781,14 +851,255 @@
   }
 }
 
-/* Gradient chạy nhẹ */
+
 @keyframes romanticGlow{
   0%{ background-position: 0% center; }
   100%{ background-position: 200% center; }
 }
+
+
+
+
+
+
+
+
+
+
+
+/* ===== NAVBAR ===== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 18px 0;
+    background: rgba(10, 0, 30, 0.4);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+    z-index: 999;
+}
+
+/* Container */
+.nav-container {
+    display: flex;
+    gap: 50px;
+    padding-left: 60px;
+}
+
+/* Links */
+.nav-item {
+    position: relative;
+    text-decoration: none;
+
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: 1px;
+
+    /* Gradient romantic */
+    background: linear-gradient(
+        90deg,
+        #f9a8d4,
+        #e879f9,
+        #c084fc,
+        #f9a8d4
+    );
+    background-size: 200% auto;
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    transition: all 0.4s ease;
+
+    /* Glow */
+    text-shadow:
+        0 0 6px rgba(232,121,249,0.8),
+        0 0 12px rgba(192,132,252,0.6);
+    
+    animation: navGlow 4s linear infinite;
+}
+
+/* Hiệu ứng ánh sáng chạy */
+@keyframes navGlow {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+
+/* Hover nổi lên */
+.nav-item:hover {
+    transform: translateY(-4px) scale(1.05);
+    text-shadow:
+        0 0 10px #f472b6,
+        0 0 20px #c084fc,
+        0 0 30px #e879f9;
+}
+
+
+
+/*ba chữ main*/
+/* PROFILE */
+.left-card .bio-label {
+  background: linear-gradient(
+    90deg,
+    #e9d5ff,
+    #c084fc,
+    #d8b4fe,
+    #c084fc,
+    #e9d5ff
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow:
+    0 0 6px rgba(192,132,252,0.6),
+    0 0 14px rgba(167,139,250,0.4);
+
+  animation: romanticShift 6s linear infinite,
+             gentleFloat 3s ease-in-out infinite;
+}
+
+/* INFO (giữa) */
+.bio-card .bio-label {
+  background: linear-gradient(
+    90deg,
+    #fbcfe8,
+    #e879f9,
+    #c084fc,
+    #e879f9,
+    #fbcfe8
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow:
+    0 0 6px rgba(232,121,249,0.6),
+    0 0 14px rgba(192,132,252,0.5);
+
+  animation: romanticShift 6s linear infinite,
+             gentleFloat 3s ease-in-out infinite;
+}
+
+/* SKILL */
+.skill-card .bio-label {
+  background: linear-gradient(
+    90deg,
+    #c7d2fe,
+    #a5b4fc,
+    #c084fc,
+    #a5b4fc,
+    #c7d2fe
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow:
+    0 0 6px rgba(165,180,252,0.6),
+    0 0 14px rgba(192,132,252,0.4);
+
+  animation: romanticShift 6s linear infinite,
+             gentleFloat 3s ease-in-out infinite;
+}
+
+@keyframes romanticShift {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes gentleFloat {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+
+
+
+/*code*/
+
+/* TERMINAL */
+.terminal {
+  margin-top: 25px;
+  width: 100%;
+  background: rgba(5,0,15,0.7);
+  border: 1px solid rgba(168,85,247,0.25);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: inset 0 0 15px rgba(168,85,247,0.15);
+  font-family: monospace;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: rgba(20,0,40,0.8);
+  border-bottom: 1px solid rgba(168,85,247,0.2);
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.red { background: #ff5f56; }
+.yellow { background: #ffbd2e; }
+.green { background: #27c93f; }
+
+.term-title {
+  margin-left: 10px;
+  font-size: 0.7rem;
+  color: #c084fc;
+  letter-spacing: 1px;
+}
+
+.terminal-body {
+  padding: 15px;
+  font-size: 0.8rem;
+  color: #d8b4fe;
+  min-height: 90px;
+  white-space: pre;
+  font-family: "Courier New", monospace;
+  text-shadow: 0 0 6px rgba(168,85,247,0.6);
+}
+
+.prompt {
+  color: #a78bfa;
+}
+
+.cursor {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%,50%,100% { opacity: 1; }
+  25%,75% { opacity: 0; }
+}
+
+/* khi bypass thành công */
+.granted {
+  color: #f472b6;
+  text-shadow:
+    0 0 8px #f472b6,
+    0 0 16px #ec4899,
+    0 0 25px #db2777;
+}
+
 </style>
 </head>
 <body>
+<!--MENU UI -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="main.html" class="nav-item">Home</a>
+        <a href="api.html" class="nav-item">API</a>
+        <a href="status.html" class="nav-item">Status</a>
+    </div>
+</nav>
+
 
 <div class="bg-gradient"></div>
 <div class="stars" id="stars"></div>
@@ -807,10 +1118,13 @@
     </div>
   </div>
 
+
+<!--MENU UI -->
+
   <!-- Name -->
   <div class="name-block">
     <div class="name">Phạm Quang Vương</div>
-    <div class="title-tag">✦ Dev Api · I Love Her · Coding ✦</div>
+    <div class="title-tag">✦ Dev Api · Coding · Updating ✦</div>
   </div>
 
   <div class="divider"></div>
@@ -823,7 +1137,7 @@
     <span class="corner-rune bl">⟁</span>
     <span class="corner-rune br">⟁</span>
 
-    <div class="bio-label">✦ PROFILE ✦</div>
+    <div class="bio-label label-profile">✦ PROFILE ✦</div>
 
     <div class="bio-line">
       <span class="ico">🎮</span>
@@ -832,7 +1146,7 @@
 
     <div class="bio-line">
       <span class="ico">🎓</span>
-      <span class="bio-text">Study at Nguyễn Thiện Thuật School</span>
+      <span class="bio-text">Study at Nguyễn Thiệt Thuật School</span>
     </div>
 <div class="bio-line">
   <span class="ico">💜</span>
@@ -840,14 +1154,14 @@
     Relationship: Taken by 
     <span class="love-name">
   <span>M</span>
-  <span>I</span>
-  <span>N</span>
-  <span>H</span>
+  <span>i</span>
+  <span>n</span>
+  <span>h</span>
   <span>&nbsp;</span>
   <span>N</span>
-  <span>G</span>
-  <span>Ọ</span>
-  <span>C</span>
+  <span>g</span>
+  <span>o</span>
+  <span>c</span>
 </span>
     💜
   </span>
@@ -867,49 +1181,71 @@
     <span class="corner-rune tr">⟁</span>
     <span class="corner-rune bl">⟁</span>
     <span class="corner-rune br">⟁</span>
-    <div class="bio-label">✦ INFO ✦</div>
+    <div class="bio-label label-info">✦ INFO ✦</div>
     <div class="bio-line"><span class="ico">🎂</span><span class="bio-text">Date of Birth: 03/02/2010</span></div>
     <div class="bio-line"><span class="ico">📍</span><span class="bio-text">Location: Hưng Yên, Việt Nam</span></div>
     <div class="bio-line"><span class="ico">💜</span><span class="bio-text">Passions: Coding · Music · The Night</span></div>
     <div class="bio-line"><span class="ico">🌙</span><span class="bio-text">Currently seeking peace in every breath...</span></div>
   </div>
 <!--skill code-->
- <div class="skill-card">
-    <span class="corner-rune tl">⟁</span>
-    <span class="corner-rune tr">⟁</span>
-    <span class="corner-rune bl">⟁</span>
-    <span class="corner-rune br">⟁</span>
-    <div class="bio-label">✦ SKILL ✦</div>
-    <div class="skill-item">
-  <div class="skill-header">
-    <span>💠 PYTHON</span>
-    <span>85%</span>
-  </div>
-  <div class="skill-bar">
-    <div class="skill-progress" data-width="85"></div>
-  </div>
-</div>
+<div class="skill-card">
+  <span class="corner-rune tl">⟁</span>
+  <span class="corner-rune tr">⟁</span>
+  <span class="corner-rune bl">⟁</span>
+  <span class="corner-rune br">⟁</span>
 
-<div class="skill-item">
-  <div class="skill-header">
-    <span>💠 JAVASCRIPT</span>
-    <span>70%</span>
-  </div>
-  <div class="skill-bar">
-    <div class="skill-progress" data-width="70"></div>
-  </div>
-</div>
+  <div class="bio-label label-skill">✦ SKILL ✦</div>
 
-<div class="skill-item">
-  <div class="skill-header">
-    <span>💠 HTML/CSS</span>
-    <span>90%</span>
+  <!-- PYTHON -->
+  <div class="skill-item">
+    <div class="skill-header">
+      <span>💠 PYTHON</span>
+      <span>85%</span>
+    </div>
+    <div class="skill-bar">
+      <div class="skill-progress" data-width="85"></div>
+    </div>
   </div>
-  <div class="skill-bar">
-    <div class="skill-progress" data-width="90"></div>
+
+  <!-- JAVASCRIPT -->
+  <div class="skill-item">
+    <div class="skill-header">
+      <span>💠 JAVASCRIPT</span>
+      <span>70%</span>
+    </div>
+    <div class="skill-bar">
+      <div class="skill-progress" data-width="70"></div>
+    </div>
   </div>
+
+  <!-- HTML CSS -->
+  <div class="skill-item">
+    <div class="skill-header">
+      <span>💠 HTML/CSS</span>
+      <span>90%</span>
+    </div>
+    <div class="skill-bar">
+      <div class="skill-progress" data-width="90"></div>
+    </div>
+  </div>
+
+  <!-- 🔥 TERMINAL PYTHON -->
+  <div class="terminal">
+    <div class="terminal-header">
+      <span class="dot red"></span>
+      <span class="dot yellow"></span>
+      <span class="dot green"></span>
+      <span class="term-title">bypass_trai_tim_em.py</span>
+    </div>
+
+    <div class="terminal-body">
+      <span class="prompt">>>> </span>
+      <span id="typed-code"></span>
+      <span class="cursor">|</span>
+    </div>
+  </div>
+
 </div>
-  </div>
 </div>
   
 
@@ -1237,6 +1573,73 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+const links = document.querySelectorAll(".nav-item");
+    const currentPage = window.location.pathname.split("/").pop();
+
+    links.forEach(link => {
+        if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active");
+        }
+    });
+
+
+
+
+
+const codeLines = [
+  "import asyncio",
+  "import hashlib",
+  "",
+  "class HeartFirewall:",
+  "    def __init__(self, owner):",
+  "        self.owner = owner",
+  "        self.encrypted = True",
+  "",
+  "    async def bypass(self, key):",
+  "        print('Decrypting heart firewall...')",
+  "        await asyncio.sleep(0.8)",
+  "        self.encrypted = False",
+  "        return 'ACCESS GRANTED ❤️'",
+  "",
+  "firewall = HeartFirewall('Em')",
+  "print(asyncio.run(firewall.bypass('MinhNgoc')))"
+];
+
+const typed = document.getElementById("typed-code");
+let lineIndex = 0;
+let charIndex = 0;
+let deleting = false;
+
+function typeEffect() {
+  const currentLine = codeLines[lineIndex];
+
+  if (!deleting) {
+    typed.textContent = currentLine.slice(0, charIndex++);
+    
+    if (currentLine.includes("ACCESS GRANTED")) {
+      typed.classList.add("granted");
+    } else {
+      typed.classList.remove("granted");
+    }
+
+    if (charIndex > currentLine.length) {
+      deleting = true;
+      setTimeout(typeEffect, 1500);
+      return;
+    }
+  } else {
+    typed.textContent = currentLine.slice(0, charIndex--);
+
+    if (charIndex < 0) {
+      deleting = false;
+      lineIndex = (lineIndex + 1) % codeLines.length;
+    }
+  }
+
+  setTimeout(typeEffect, deleting ? 25 : 45);
+}
+
+typeEffect();
 </script>
 </body>
 </html>

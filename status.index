@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Status</title>
+
+<style>
+:root{
+  --bg:#070312;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  background:
+  radial-gradient(circle at 20% 20%,rgba(124,58,237,0.2),transparent 60%),
+  radial-gradient(circle at 80% 80%,rgba(255,110,199,0.15),transparent 60%),
+  var(--bg);
+  color:white;
+  font-family:Segoe UI, sans-serif;
+  overflow-x:hidden;
+}
+
+/* ================= NAV ================= */
+
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:18px 60px;
+  background:rgba(10,0,30,0.5);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid rgba(168,85,247,0.2);
+  z-index:999;
+}
+
+.navbar a{
+  margin-right:40px;
+  text-decoration:none;
+  font-weight:600;
+  background:linear-gradient(90deg,#f9a8d4,#c084fc,#f9a8d4);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* ================= LAYOUT ================= */
+
+.wrapper{
+  padding:130px 60px 60px 60px;
+}
+
+.status-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:30px;
+}
+
+/* ================= CARD ================= */
+
+.status-card{
+  background:linear-gradient(145deg,rgba(15,8,35,0.95),rgba(7,5,20,0.95));
+  border-radius:18px;
+  padding:25px;
+  backdrop-filter:blur(12px);
+  transition:.4s;
+}
+
+.status-card:hover{
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:
+    0 0 40px rgba(255,110,199,0.6),
+    0 0 80px rgba(124,58,237,0.4);
+}
+
+.status-header{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+
+.title-wrap{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.icon{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#ff6ec7,#c084fc,#7c3aed);
+  box-shadow:
+    0 0 12px rgba(255,110,199,0.8),
+    0 0 25px rgba(192,132,252,0.6);
+}
+
+.icon svg{
+  width:18px;
+  height:18px;
+  fill:white;
+}
+
+.status-title{font-weight:600;font-size:1.1rem;}
+.status-sub{font-size:0.8rem;color:#aaa;}
+.status-value{font-size:1.5rem;font-weight:700;color:#22ff99;}
+
+.status-footer{
+  display:flex;
+  justify-content:space-between;
+  margin-top:15px;
+  font-size:0.75rem;
+  background:rgba(0,0,0,0.4);
+  padding:6px 10px;
+  border-radius:8px;
+}
+
+canvas{
+  width:100%;
+  height:120px;
+}
+
+/* ================= MISS SECTION ================= */
+
+.miss-section{
+  margin-top:120px;   /* giảm khoảng cách phía trên */
+  padding:120px 0 200px 0;  /* ít padding trên, nhiều dưới */
+  text-align:center;
+  position:relative;
+}
+.miss-text{
+  font-size:120px;
+  font-weight:900;
+  letter-spacing:10px;
+  position:relative;
+  z-index:2;
+
+  background:linear-gradient(90deg,#ff6ec7,#c084fc,#7c3aed,#ff6ec7);
+  background-size:300% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  animation:
+    flow 8s linear infinite,
+    floatText 5s ease-in-out infinite,
+    zoomPulse 12s ease-in-out infinite;
+
+  text-shadow:
+    0 0 30px rgba(255,110,199,0.7),
+    0 0 60px rgba(192,132,252,0.5);
+}
+
+@keyframes flow{
+  0%{background-position:0% center;}
+  100%{background-position:300% center;}
+}
+
+@keyframes floatText{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-20px);}
+}
+
+@keyframes zoomPulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.08);}
+}
+
+/* ================= HEARTS ================= */
+
+.heart{
+  position:fixed;
+  pointer-events:none;
+  z-index:0;
+  opacity:0.8;
+
+  background:linear-gradient(45deg,#ff6ec7,#c084fc);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  text-shadow:
+    0 0 10px rgba(255,110,199,0.8),
+    0 0 20px rgba(192,132,252,0.6);
+
+  animation: floatHeart linear infinite;
+}
+
+@keyframes floatHeart{
+  0%{
+    transform:translateY(0px) translateX(0px);
+  }
+  50%{
+    transform:translateY(-120px) translateX(40px);
+  }
+  100%{
+    transform:translateY(0px) translateX(0px);
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+  <a href="main.html">Home</a>
+  <a href="api.html">API</a>
+  <a href="status.html">Status</a>
+</nav>
+
+<div class="wrapper">
+<div class="status-grid">
+
+<div class="status-card">
+  <div class="status-header">
+    <div class="title-wrap">
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M9 9h6v6H9z"/></svg></div>
+      <div>
+        <div class="status-title">CPU Usage</div>
+        <div class="status-sub">Processing Power</div>
+      </div>
+    </div>
+    <div class="status-value" id="cpuVal">0%</div>
+  </div>
+  <canvas id="cpuChart"></canvas>
+  <div class="status-footer">
+    <span id="cpuMin">Min: 0%</span>
+    <span id="cpuMax">Max: 0%</span>
+    <span id="cpuAvg">Avg: 0%</span>
+  </div>
+</div>
+
+<div class="status-card">
+  <div class="status-header">
+    <div class="title-wrap">
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 7h16v10H4z"/></svg></div>
+      <div>
+        <div class="status-title">Memory Usage</div>
+        <div class="status-sub">RAM Consumption</div>
+      </div>
+    </div>
+    <div class="status-value" id="ramVal">0%</div>
+  </div>
+  <canvas id="ramChart"></canvas>
+  <div class="status-footer">
+    <span id="ramUsed">Used: 0 MB</span>
+    <span id="ramFree">Free: 0 MB</span>
+    <span id="ramTotal">Total: 0 MB</span>
+  </div>
+</div>
+
+<div class="status-card">
+  <div class="status-header">
+    <div class="title-wrap">
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 10h16M4 14h16" stroke="white" stroke-width="2" fill="none"/></svg></div>
+      <div>
+        <div class="status-title">Network I/O</div>
+        <div class="status-sub">Data Transfer</div>
+      </div>
+    </div>
+    <div class="status-value" id="netVal">0 MB/s</div>
+  </div>
+  <canvas id="netChart"></canvas>
+  <div class="status-footer">
+    <span id="netIn">In: 0</span>
+    <span id="netOut">Out: 0</span>
+    <span id="netTotal">Total: 0</span>
+  </div>
+</div>
+
+</div>
+</div>
+
+<section class="miss-section">
+  <h1 class="miss-text">🅘 🅜🅘🅢🅢 🅗🅔🅡</h1>
+</section>
+
+<script>
+/* ===== HEART SYSTEM WITH PARALLAX ===== */
+
+const totalHearts = 90;
+const hearts = [];
+
+function random(min,max){return Math.random()*(max-min)+min;}
+
+for(let i=0;i<totalHearts;i++){
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="❤";
+
+  heart.style.left=random(0,100)+"vw";
+  heart.style.top=random(0,100)+"vh";
+  heart.style.fontSize=random(10,30)+"px";
+  heart.style.animationDuration=random(8,20)+"s";
+
+  document.body.appendChild(heart);
+
+  hearts.push({
+    el:heart,
+    speed:random(0.2,1.2)
+  });
+}
+
+/* parallax when scroll */
+window.addEventListener("scroll",()=>{
+  const scrollY=window.scrollY;
+  hearts.forEach(h=>{
+    h.el.style.transform=`translateY(${scrollY*h.speed*0.05}px)`;
+  });
+});
+</script>
+
+</body>
+</html>

@@ -59,6 +59,8 @@ body{
 /* ================= CARD ================= */
 
 .status-card{
+  position:relative;
+  overflow:hidden;
   background:linear-gradient(145deg,rgba(15,8,35,0.95),rgba(7,5,20,0.95));
   border-radius:18px;
   padding:25px;
@@ -71,6 +73,26 @@ body{
   box-shadow:
     0 0 40px rgba(255,110,199,0.6),
     0 0 80px rgba(124,58,237,0.4);
+}
+
+/* hover glow follow mouse */
+.status-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:18px;
+  background:radial-gradient(
+    circle at var(--x) var(--y),
+    rgba(255,110,199,0.35),
+    transparent 60%
+  );
+  opacity:0;
+  transition:opacity .3s ease;
+  pointer-events:none;
+}
+
+.status-card:hover::after{
+  opacity:1;
 }
 
 .status-header{
@@ -126,11 +148,12 @@ canvas{
 /* ================= MISS SECTION ================= */
 
 .miss-section{
-  margin-top:120px;   /* giảm khoảng cách phía trên */
-  padding:120px 0 200px 0;  /* ít padding trên, nhiều dưới */
+  margin-top:150px;
+  padding:150px 0;
   text-align:center;
   position:relative;
 }
+
 .miss-text{
   font-size:120px;
   font-weight:900;
@@ -188,15 +211,9 @@ canvas{
 }
 
 @keyframes floatHeart{
-  0%{
-    transform:translateY(0px) translateX(0px);
-  }
-  50%{
-    transform:translateY(-120px) translateX(40px);
-  }
-  100%{
-    transform:translateY(0px) translateX(0px);
-  }
+  0%{ transform:translateY(0px) translateX(0px); }
+  50%{ transform:translateY(-120px) translateX(40px); }
+  100%{ transform:translateY(0px) translateX(0px); }
 }
 
 </style>
@@ -274,11 +291,73 @@ canvas{
 </div>
 
 <section class="miss-section">
-  <h1 class="miss-text">🅘 🅜🅘🅢🅢 🅗🅔🅡</h1>
+  <h1 class="miss-text">范 光 王</h1>
 </section>
 
 <script>
-/* ===== HEART SYSTEM WITH PARALLAX ===== */
+
+/* ================= CHART SYSTEM ================= */
+
+const charts=["cpu","ram","net"];
+let data={cpu:[],ram:[],net:[]};
+
+charts.forEach(id=>{
+  const canvas=document.getElementById(id+"Chart");
+  canvas.width=400;
+  canvas.height=120;
+});
+
+function draw(ctx,arr,color){
+  ctx.clearRect(0,0,400,120);
+  ctx.beginPath();
+  ctx.strokeStyle=color;
+  ctx.lineWidth=2;
+  ctx.shadowColor=color;
+  ctx.shadowBlur=15;
+
+  arr.forEach((v,i)=>{
+    const x=i*(400/arr.length);
+    const y=120-(v/100)*120;
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  });
+
+  ctx.stroke();
+  ctx.shadowBlur=0;
+}
+
+function update(){
+
+  const cpu=Math.random()*40;
+  const ramTotal=16000;
+  const ramUsed=Math.floor(Math.random()*8000+4000);
+  const ramFree=ramTotal-ramUsed;
+  const ramPercent=(ramUsed/ramTotal)*100;
+  const net=Math.random()*50;
+
+  cpuVal.innerText=cpu.toFixed(1)+"%";
+  ramVal.innerText=ramPercent.toFixed(1)+"%";
+  netVal.innerText=(net/10).toFixed(2)+" MB/s";
+
+  document.getElementById("ramUsed").innerText="Used: "+ramUsed+" MB";
+  document.getElementById("ramFree").innerText="Free: "+ramFree+" MB";
+  document.getElementById("ramTotal").innerText="Total: "+ramTotal+" MB";
+
+  data.cpu.push(cpu);
+  data.ram.push(ramPercent);
+  data.net.push(net);
+
+  if(data.cpu.length>30){
+    charts.forEach(c=>data[c].shift());
+  }
+
+  draw(cpuChart.getContext("2d"),data.cpu,"#22ff99");
+  draw(ramChart.getContext("2d"),data.ram,"#ff6ec7");
+  draw(netChart.getContext("2d"),data.net,"#c084fc");
+}
+
+setInterval(update,1000);
+
+/* ================= HEART SYSTEM ================= */
 
 const totalHearts = 90;
 const hearts = [];
@@ -303,13 +382,25 @@ for(let i=0;i<totalHearts;i++){
   });
 }
 
-/* parallax when scroll */
 window.addEventListener("scroll",()=>{
   const scrollY=window.scrollY;
   hearts.forEach(h=>{
     h.el.style.transform=`translateY(${scrollY*h.speed*0.05}px)`;
   });
 });
+
+/* ================= MOUSE GLOW ================= */
+
+document.querySelectorAll(".status-card").forEach(card=>{
+  card.addEventListener("mousemove",(e)=>{
+    const rect=card.getBoundingClientRect();
+    const x=((e.clientX-rect.left)/rect.width)*100;
+    const y=((e.clientY-rect.top)/rect.height)*100;
+    card.style.setProperty("--x",x+"%");
+    card.style.setProperty("--y",y+"%");
+  });
+});
+
 </script>
 
 </body>
